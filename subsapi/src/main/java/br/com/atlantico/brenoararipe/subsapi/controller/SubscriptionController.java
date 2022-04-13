@@ -1,9 +1,13 @@
 package br.com.atlantico.brenoararipe.subsapi.controller;
 
+import br.com.atlantico.brenoararipe.subsapi.dto.SubscriptionDto;
+import br.com.atlantico.brenoararipe.subsapi.service.RabbitmqService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import static constants.RabbitMQConstants.QUEUE_SUBSCRIPTION;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 
@@ -14,13 +18,17 @@ import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 @RequestMapping("/api/v1/subscription")
 public class SubscriptionController {
 
+    @Autowired
+    private RabbitmqService rabbitmqService;
+
     /**
      * The purchase was made.
      *
-     * @param subscriptionDTO
+     * @param subscriptionDto DTO with id and status_id payloads serialized.
      */
     @RequestMapping(value = "/purchase" ,method = PUT)
-    public ResponseEntity purchaseSubscription(@RequestBody Object subscriptionDTO) {
+    public ResponseEntity purchaseSubscription(@RequestBody SubscriptionDto subscriptionDto) {
+        this.rabbitmqService.sendMessage(QUEUE_SUBSCRIPTION, subscriptionDto);
         return new ResponseEntity(HttpStatus.OK);
     }
 
@@ -35,7 +43,7 @@ public class SubscriptionController {
     /**
      * The purchase was recovered.
      */
-    @RequestMapping(value = "/restart" ,method = PUT)
+    @RequestMapping(value = "/recover" ,method = PUT)
     public String restartSubscription() {
         return "Restarting your subscription...";
     }
