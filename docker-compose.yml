@@ -22,7 +22,7 @@ services:
 #      - '5432:5432'
 #    environment:
 #      - POSTGRES_PASSWORD=123
-#      - POSTGRES_USER=oi
+#      - POSTGRES_USER=postgres
 #      - POSTGRES_DB=subirapi
 
   rabbit:
