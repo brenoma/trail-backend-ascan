@@ -4,29 +4,48 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import static org.springframework.web.bind.annotation.RequestMethod.PUT;
+
+/**
+ * Controller class for subscriptions
+ */
 @RestController
 @RequestMapping("/api/v1/subscription")
 public class SubscriptionController {
 
-    // PURCHASE
-    @PutMapping("/purchase")
+    /**
+     * The purchase was made.
+     *
+     * @param subscriptionDTO
+     */
+    @RequestMapping(value = "/purchase" ,method = PUT)
     public ResponseEntity purchaseSubscription(@RequestBody Object subscriptionDTO) {
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    // CANCELED
-    @PutMapping("/cancel")
+    /**
+     * The purchase was canceled.
+     */
+    @RequestMapping(value = "/cancel" ,method = PUT)
     public String cancelSubscription() {
         return "Canceling your subscription...";
     }
 
-    // RESTARTED
-    @PutMapping("/restart")
+    /**
+     * The purchase was recovered.
+     */
+    @RequestMapping(value = "/restart" ,method = PUT)
     public String restartSubscription() {
         return "Restarting your subscription...";
     }
 
-    @GetMapping("/health")
+    /**
+     * Health Check Subscription API.
+     *
+     * @return a {@link String} response with the status of the controller.
+     */
+    @RequestMapping(value = "/health" ,method = GET)
     public String check() {
         return "Subscription Endpoint OK!!!";
     }
