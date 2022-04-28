@@ -1,7 +1,7 @@
 package br.com.atlantico.brenoararipe.subsapi.controller;
 
-import br.com.atlantico.brenoararipe.subsapi.dto.SubscriptionDto;
 import br.com.atlantico.brenoararipe.subsapi.service.RabbitmqService;
+import dto.SubscriptionDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

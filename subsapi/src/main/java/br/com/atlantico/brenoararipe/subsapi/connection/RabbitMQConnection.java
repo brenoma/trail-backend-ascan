@@ -1,4 +1,4 @@
-package br.com.atlantico.brenoararipe.subsapi.connections;
+package br.com.atlantico.brenoararipe.subsapi.connection;
 
 import constants.RabbitMQConstants;
 import org.springframework.amqp.core.AmqpAdmin;

@@ -1,4 +1,4 @@
-package br.com.atlantico.brenoararipe.subsapi.dto;
+package dto;
 
 import java.io.Serializable;
 
