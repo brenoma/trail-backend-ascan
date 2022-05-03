@@ -1,19 +1,13 @@
 package br.com.atlantico.brenoararipe.subsapi.controller;
 
-import br.com.atlantico.brenoararipe.consumermicroservice.model.Subscription;
-import br.com.atlantico.brenoararipe.consumermicroservice.repository.SubscriptionRepository;
-//import br.com.atlantico.brenoararipe.subsapi.form.CreateSubscriptionForm;
 import br.com.atlantico.brenoararipe.subsapi.service.RabbitmqService;
-import constants.SubscriptionStatusConstants;
 import dto.SubscriptionDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.util.UriComponentsBuilder;
 
-import java.net.URI;
-
+import static constants.RabbitMQConstants.QUEUE_REGISTER;
 import static constants.RabbitMQConstants.QUEUE_SUBSCRIPTION;
 import static constants.SubscriptionStatusConstants.ACTIVE;
 import static constants.SubscriptionStatusConstants.INACTIVE;
@@ -37,9 +31,7 @@ public class SubscriptionController {
     @RequestMapping(value = "/register", method = POST)
     public ResponseEntity register(@RequestBody SubscriptionDto subscriptionDto) {
         subscriptionDto.status_id = INACTIVE;
-        System.out.println(subscriptionDto.email);
-        System.out.println(subscriptionDto.status_id);
-//        this.rabbitmqService.sendMessage(QUEUE_SUBSCRIPTION, subscriptionDto);
+        this.rabbitmqService.sendMessage(QUEUE_REGISTER, subscriptionDto);
         return new ResponseEntity(HttpStatus.CREATED);
     }
 

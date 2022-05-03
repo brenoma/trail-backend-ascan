@@ -5,8 +5,7 @@ import br.com.atlantico.brenoararipe.consumermicroservice.repository.Subscriptio
 import dto.SubscriptionDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class SubscriptionService {
@@ -14,14 +13,17 @@ public class SubscriptionService {
     @Autowired
     SubscriptionRepository subscriptionRepository;
 
-    public void save(SubscriptionDto subscriptionDto) {
+    public void registerSubscription(SubscriptionDto subscriptionDto) {
         Subscription subscription = new Subscription(subscriptionDto.email, subscriptionDto.status_id);
-        Subscription responseSub = subscriptionRepository.save(subscription);
-        List<Subscription> teste1 = subscriptionRepository.findAll();
+        subscriptionRepository.save(subscription);
     }
 
+    @Transactional
     public void updateSubscription(SubscriptionDto subscriptionDto) {
-        Subscription subscription = subscriptionRepository.getById(subscriptionDto.id);
-        System.out.println(subscription);
+        if (subscriptionDto.id != null) {
+            Subscription subscription = subscriptionRepository.getById(subscriptionDto.id);
+            subscription.setStatus_id(subscriptionDto.status_id);
+            subscriptionRepository.save(subscription);
+        }
     }
 }

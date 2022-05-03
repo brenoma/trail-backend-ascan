@@ -18,7 +18,6 @@ public class Subscription {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true)
     @NotNull
     @Email
     private String email;
@@ -32,6 +31,8 @@ public class Subscription {
 
     @UpdateTimestamp
     private LocalDateTime updated_at;
+
+    public Subscription() {}
 
     public Subscription(String email, String status_id) {
         this.email = email;

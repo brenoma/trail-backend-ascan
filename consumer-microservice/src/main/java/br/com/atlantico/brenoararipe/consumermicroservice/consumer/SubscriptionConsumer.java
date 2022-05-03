@@ -6,6 +6,7 @@ import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import static constants.RabbitMQConstants.QUEUE_REGISTER;
 import static constants.RabbitMQConstants.QUEUE_SUBSCRIPTION;
 
 @Component
@@ -22,6 +23,15 @@ public class SubscriptionConsumer {
         System.out.println(subscriptionDto.status_id);
         System.out.println("-----------------------------");
 
-        subscriptionService.save(subscriptionDto);
+        if (subscriptionDto.id != null) {
+            subscriptionService.updateSubscription(subscriptionDto);
+        } else {
+            System.out.println("Invalid ID");
+        }
+    }
+
+    @RabbitListener(queues = QUEUE_REGISTER)
+    private void registerConsumer(SubscriptionDto subscriptionDto) {
+        subscriptionService.registerSubscription(subscriptionDto);
     }
 }
