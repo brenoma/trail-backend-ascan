@@ -23,19 +23,21 @@ public class Subscription {
     private String email;
 
     @NotNull
-    private String status_id;
+    @Column(name = "status_id")
+    private String statusId;
 
-    @NotNull
     @CreationTimestamp
-    private LocalDateTime created_at = LocalDateTime.now();
+    @Column(name = "created_at")
+    private LocalDateTime createdAt;
 
     @UpdateTimestamp
-    private LocalDateTime updated_at;
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
 
     public Subscription() {}
 
-    public Subscription(String email, String status_id) {
+    public Subscription(String email, String statusId) {
         this.email = email;
-        this.status_id = status_id;
+        this.statusId = statusId;
     }
 }

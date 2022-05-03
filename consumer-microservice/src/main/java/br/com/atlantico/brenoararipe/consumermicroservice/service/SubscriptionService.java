@@ -13,6 +13,9 @@ public class SubscriptionService {
     @Autowired
     SubscriptionRepository subscriptionRepository;
 
+    @Autowired
+    EventHistoryService eventHistoryService;
+
     public void registerSubscription(SubscriptionDto subscriptionDto) {
         Subscription subscription = new Subscription(subscriptionDto.email, subscriptionDto.status_id);
         subscriptionRepository.save(subscription);
@@ -22,8 +25,10 @@ public class SubscriptionService {
     public void updateSubscription(SubscriptionDto subscriptionDto) {
         if (subscriptionDto.id != null) {
             Subscription subscription = subscriptionRepository.getById(subscriptionDto.id);
-            subscription.setStatus_id(subscriptionDto.status_id);
+            subscription.setStatusId(subscriptionDto.status_id);
             subscriptionRepository.save(subscription);
+
+            eventHistoryService.registerHistory("PURCHASE", subscription);
         }
     }
 }

@@ -16,12 +16,7 @@ public class SubscriptionConsumer {
     SubscriptionService subscriptionService;
 
     @RabbitListener(queues = QUEUE_SUBSCRIPTION)
-    private void consumer(SubscriptionDto subscriptionDto) {
-
-        System.out.println(subscriptionDto.id);
-        System.out.println(subscriptionDto.email);
-        System.out.println(subscriptionDto.status_id);
-        System.out.println("-----------------------------");
+    private void subscriptionConsumer(SubscriptionDto subscriptionDto) {
 
         if (subscriptionDto.id != null) {
             subscriptionService.updateSubscription(subscriptionDto);
@@ -32,6 +27,7 @@ public class SubscriptionConsumer {
 
     @RabbitListener(queues = QUEUE_REGISTER)
     private void registerConsumer(SubscriptionDto subscriptionDto) {
+
         subscriptionService.registerSubscription(subscriptionDto);
     }
 }
