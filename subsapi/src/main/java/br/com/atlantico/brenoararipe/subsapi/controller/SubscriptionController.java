@@ -7,10 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import static constants.RabbitMQConstants.QUEUE_REGISTER;
-import static constants.RabbitMQConstants.QUEUE_SUBSCRIPTION;
-import static constants.SubscriptionStatusConstants.ACTIVE;
-import static constants.SubscriptionStatusConstants.INACTIVE;
+import static constants.RabbitMQConstants.*;
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 /**
@@ -30,7 +27,6 @@ public class SubscriptionController {
      */
     @RequestMapping(value = "/register", method = POST)
     public ResponseEntity register(@RequestBody SubscriptionDto subscriptionDto) {
-        subscriptionDto.status_id = INACTIVE;
         this.rabbitmqService.sendMessage(QUEUE_REGISTER, subscriptionDto);
         return new ResponseEntity(HttpStatus.CREATED);
     }
@@ -42,8 +38,7 @@ public class SubscriptionController {
      */
     @RequestMapping(value = "/purchase", method = PUT)
     public ResponseEntity purchaseSubscription(@RequestBody SubscriptionDto subscriptionDto) {
-        subscriptionDto.status_id = ACTIVE;
-        this.rabbitmqService.sendMessage(QUEUE_SUBSCRIPTION, subscriptionDto);
+        this.rabbitmqService.sendMessage(QUEUE_PURCHASE, subscriptionDto);
         return new ResponseEntity(HttpStatus.OK);
     }
 
@@ -54,8 +49,7 @@ public class SubscriptionController {
      */
     @RequestMapping(value = "/cancel", method = PUT)
     public ResponseEntity cancelSubscription(@RequestBody SubscriptionDto subscriptionDto) {
-        subscriptionDto.status_id = INACTIVE;
-        this.rabbitmqService.sendMessage(QUEUE_SUBSCRIPTION, subscriptionDto);
+        this.rabbitmqService.sendMessage(QUEUE_CANCEL, subscriptionDto);
         return new ResponseEntity(HttpStatus.OK);
     }
 
@@ -66,8 +60,7 @@ public class SubscriptionController {
      */
     @RequestMapping(value = "/recover", method = PUT)
     public ResponseEntity restartSubscription(@RequestBody SubscriptionDto subscriptionDto) {
-        subscriptionDto.status_id = ACTIVE;
-        this.rabbitmqService.sendMessage(QUEUE_SUBSCRIPTION, subscriptionDto);
+        this.rabbitmqService.sendMessage(QUEUE_RECOVER, subscriptionDto);
         return new ResponseEntity(HttpStatus.OK);
     }
 

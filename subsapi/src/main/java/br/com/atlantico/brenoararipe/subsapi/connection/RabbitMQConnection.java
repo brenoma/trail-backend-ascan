@@ -31,23 +31,31 @@ public class RabbitMQConnection {
 
     @PostConstruct
     private void add() {
-        Queue queueSubscription = this.queue(RabbitMQConstants.QUEUE_SUBSCRIPTION);
+        Queue queuePurchase = this.queue(RabbitMQConstants.QUEUE_PURCHASE);
+        Queue queueCancel = this.queue(RabbitMQConstants.QUEUE_CANCEL);
+        Queue queueRecover = this.queue(RabbitMQConstants.QUEUE_RECOVER);
         Queue queueRegister = this.queue(RabbitMQConstants.QUEUE_REGISTER);
 
         DirectExchange exchange = this.directExchange();
 
-        Binding bindSubscription = this.binding(queueSubscription, exchange);
+        Binding bindPurchase = this.binding(queuePurchase, exchange);
+        Binding bindCancel = this.binding(queueCancel, exchange);
+        Binding bindRecover = this.binding(queueRecover, exchange);
         Binding bindRegister = this.binding(queueRegister, exchange);
 
         // Creating the queues on RabbitMQ
-        this.amqpAdmin.declareQueue(queueSubscription);
+        this.amqpAdmin.declareQueue(queuePurchase);
+        this.amqpAdmin.declareQueue(queueCancel);
+        this.amqpAdmin.declareQueue(queueRecover);
         this.amqpAdmin.declareQueue(queueRegister);
 
         // Creating the exchange on RabbitMQ
         this.amqpAdmin.declareExchange(exchange);
 
         // Creating bindings between queue and exchange
-        this.amqpAdmin.declareBinding(bindSubscription);
+        this.amqpAdmin.declareBinding(bindPurchase);
+        this.amqpAdmin.declareBinding(bindCancel);
+        this.amqpAdmin.declareBinding(bindRecover);
         this.amqpAdmin.declareBinding(bindRegister);
     }
 }

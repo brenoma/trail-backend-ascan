@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "eventhistory", schema = "public")
+@Table(name = "event_history", schema = "public")
 @Data
 public class EventHistory {
 
@@ -29,7 +29,7 @@ public class EventHistory {
 
     public EventHistory() {}
 
-    public EventHistory(String type, Subscription subscription) {
+    public EventHistory(Subscription subscription, String type) {
         this.type = type;
         this.subscription = subscription;
     }

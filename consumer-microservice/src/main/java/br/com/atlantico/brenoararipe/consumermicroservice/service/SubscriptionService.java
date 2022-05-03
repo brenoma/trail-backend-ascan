@@ -16,19 +16,26 @@ public class SubscriptionService {
     @Autowired
     EventHistoryService eventHistoryService;
 
-    public void registerSubscription(SubscriptionDto subscriptionDto) {
+    public Subscription registerSubscription(SubscriptionDto subscriptionDto, String type) {
         Subscription subscription = new Subscription(subscriptionDto.email, subscriptionDto.status_id);
         subscriptionRepository.save(subscription);
+
+        eventHistoryService.registerHistory(subscription, type);
+
+        return subscription;
     }
 
     @Transactional
-    public void updateSubscription(SubscriptionDto subscriptionDto) {
-        if (subscriptionDto.id != null) {
+    public Subscription updateSubscription(SubscriptionDto subscriptionDto, String type) {
+        if (subscriptionRepository.existsById(subscriptionDto.id)) {
             Subscription subscription = subscriptionRepository.getById(subscriptionDto.id);
             subscription.setStatusId(subscriptionDto.status_id);
             subscriptionRepository.save(subscription);
 
-            eventHistoryService.registerHistory("PURCHASE", subscription);
+            eventHistoryService.registerHistory(subscription, type);
+
+            return subscription;
         }
+        return new Subscription();
     }
 }
