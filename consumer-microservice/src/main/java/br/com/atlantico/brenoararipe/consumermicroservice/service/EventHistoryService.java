@@ -12,8 +12,10 @@ public class EventHistoryService {
     @Autowired
     EventHistoryRepository eventHistoryRepository;
 
-    public void registerHistory(String type, Subscription subscription) {
-        EventHistory eventHistory = new EventHistory(type, subscription);
+    public EventHistory registerHistory(Subscription subscription, String type) {
+        EventHistory eventHistory = new EventHistory(subscription, type);
         eventHistoryRepository.save(eventHistory);
+
+        return eventHistory;
     }
 }

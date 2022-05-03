@@ -6,28 +6,61 @@ import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import static constants.RabbitMQConstants.QUEUE_REGISTER;
-import static constants.RabbitMQConstants.QUEUE_SUBSCRIPTION;
+import static constants.RabbitMQConstants.*;
+import static constants.SubscriptionStatusConstants.ACTIVE;
+import static constants.SubscriptionStatusConstants.INACTIVE;
 
 @Component
 public class SubscriptionConsumer {
 
+    private static final String SUBSCRIPTION_CREATE = "CREATE";
+
+    private static final String SUBSCRIPTION_PURCHASE = "PURCHASE";
+
+    private static final String SUBSCRIPTION_CANCEL = "CANCEL";
+
+    private static final String SUBSCRIPTION_RECOVER = "RECOVER";
+
     @Autowired
     SubscriptionService subscriptionService;
 
-    @RabbitListener(queues = QUEUE_SUBSCRIPTION)
-    private void subscriptionConsumer(SubscriptionDto subscriptionDto) {
+    @RabbitListener(queues = QUEUE_PURCHASE)
+    private void subscriptionPurchaseConsumer(SubscriptionDto subscriptionDto) {
 
         if (subscriptionDto.id != null) {
-            subscriptionService.updateSubscription(subscriptionDto);
+            subscriptionDto.status_id = ACTIVE;
+            subscriptionService.updateSubscription(subscriptionDto, SUBSCRIPTION_PURCHASE);
+        } else {
+            System.out.println("Invalid ID");
+        }
+    }
+
+    @RabbitListener(queues = QUEUE_CANCEL)
+    private void subscriptionCancelConsumer(SubscriptionDto subscriptionDto) {
+
+        if (subscriptionDto.id != null) {
+            subscriptionDto.status_id = INACTIVE;
+            subscriptionService.updateSubscription(subscriptionDto, SUBSCRIPTION_CANCEL);
+        } else {
+            System.out.println("Invalid ID");
+        }
+    }
+
+    @RabbitListener(queues = QUEUE_RECOVER)
+    private void subscriptionRecoverConsumer(SubscriptionDto subscriptionDto) {
+
+        if (subscriptionDto.id != null) {
+            subscriptionDto.status_id = ACTIVE;
+            subscriptionService.updateSubscription(subscriptionDto, SUBSCRIPTION_RECOVER);
         } else {
             System.out.println("Invalid ID");
         }
     }
 
     @RabbitListener(queues = QUEUE_REGISTER)
-    private void registerConsumer(SubscriptionDto subscriptionDto) {
+    private void subscriptionRegisterConsumer(SubscriptionDto subscriptionDto) {
 
-        subscriptionService.registerSubscription(subscriptionDto);
+        subscriptionDto.status_id = INACTIVE;
+        subscriptionService.registerSubscription(subscriptionDto, SUBSCRIPTION_CREATE);
     }
 }
