@@ -11,30 +11,37 @@ import static constants.RabbitMQConstants.*;
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 /**
- * Controller class for subscriptions
+ * Controller class for subscriptions.
+ *
  */
 @RestController
 @RequestMapping("/api/v1/subscription")
 public class SubscriptionController {
 
+    /**
+     * RabbitmqService instance.
+     *
+     */
     @Autowired
     private RabbitmqService rabbitmqService;
 
     /**
-     * Creation of a subscription
+     * Creation of a subscription.
      *
-     * @param
+     * @param subscriptionDto {@link SubscriptionDto}
+     * @return {@link ResponseEntity}
      */
     @RequestMapping(value = "/register", method = POST)
     public ResponseEntity register(@RequestBody SubscriptionDto subscriptionDto) {
         this.rabbitmqService.sendMessage(QUEUE_REGISTER, subscriptionDto);
-        return new ResponseEntity(HttpStatus.CREATED);
+        return new ResponseEntity(subscriptionDto, HttpStatus.CREATED);
     }
 
     /**
-     * The purchase was made.
+     * The subscription was purchased.
      *
-     * @param subscriptionDto DTO with id and status_id payloads serialized.
+     * @param subscriptionDto {@link SubscriptionDto}
+     * @return {@link ResponseEntity}
      */
     @RequestMapping(value = "/purchase", method = PUT)
     public ResponseEntity purchaseSubscription(@RequestBody SubscriptionDto subscriptionDto) {
@@ -43,9 +50,10 @@ public class SubscriptionController {
     }
 
     /**
-     * The purchase was canceled.
+     * The subscription was canceled.
      *
-     * @param subscriptionDto DTO with id and status_id payloads serialized.
+     * @param subscriptionDto {@link SubscriptionDto}
+     * @return {@link ResponseEntity}
      */
     @RequestMapping(value = "/cancel", method = PUT)
     public ResponseEntity cancelSubscription(@RequestBody SubscriptionDto subscriptionDto) {
@@ -54,9 +62,10 @@ public class SubscriptionController {
     }
 
     /**
-     * The purchase was recovered.
+     * The subscription was recovered.
      *
-     * @param subscriptionDto DTO with id and status_id payloads serialized.
+     * @param subscriptionDto {@link SubscriptionDto}
+     * @return {@link ResponseEntity}
      */
     @RequestMapping(value = "/recover", method = PUT)
     public ResponseEntity restartSubscription(@RequestBody SubscriptionDto subscriptionDto) {

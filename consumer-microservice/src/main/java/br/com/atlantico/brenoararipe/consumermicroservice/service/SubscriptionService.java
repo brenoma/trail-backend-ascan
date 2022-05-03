@@ -10,12 +10,27 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class SubscriptionService {
 
+    /**
+     * SubscriptionRepository instance.
+     *
+     */
     @Autowired
     SubscriptionRepository subscriptionRepository;
 
+    /**
+     * EventHistoryService instance.
+     *
+     */
     @Autowired
     EventHistoryService eventHistoryService;
 
+    /**
+     * Method to create a new Subscription.
+     *
+     * @param subscriptionDto {@link SubscriptionDto}
+     * @param type {@link String}
+     * @return an instance of {@link Subscription}
+     */
     public Subscription registerSubscription(SubscriptionDto subscriptionDto, String type) {
         Subscription subscription = new Subscription(subscriptionDto.email, subscriptionDto.status_id);
         subscriptionRepository.save(subscription);
@@ -25,6 +40,13 @@ public class SubscriptionService {
         return subscription;
     }
 
+    /**
+     * Method to update an existing Subscription.
+     *
+     * @param subscriptionDto {@link SubscriptionDto}
+     * @param type {@link String}
+     * @return an instance of {@link Subscription}
+     */
     @Transactional
     public Subscription updateSubscription(SubscriptionDto subscriptionDto, String type) {
         if (subscriptionRepository.existsById(subscriptionDto.id)) {

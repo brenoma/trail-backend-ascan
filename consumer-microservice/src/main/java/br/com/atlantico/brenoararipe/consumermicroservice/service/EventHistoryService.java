@@ -9,9 +9,20 @@ import org.springframework.stereotype.Service;
 @Service
 public class EventHistoryService {
 
+    /**
+     * EventHistoryRepository instance.
+     *
+     */
     @Autowired
     EventHistoryRepository eventHistoryRepository;
 
+    /**
+     * Method to create a new history of change in Subscriptions.
+     *
+     * @param subscription {@link Subscription}
+     * @param type {@link String}
+     * @return an instance of {@link EventHistory}
+     */
     public EventHistory registerHistory(Subscription subscription, String type) {
         EventHistory eventHistory = new EventHistory(subscription, type);
         eventHistoryRepository.save(eventHistory);
