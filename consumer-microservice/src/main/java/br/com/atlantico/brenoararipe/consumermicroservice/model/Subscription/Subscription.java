@@ -1,4 +1,4 @@
-package br.com.atlantico.brenoararipe.consumermicroservice.model;
+package br.com.atlantico.brenoararipe.consumermicroservice.model.Subscription;
 
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
@@ -58,22 +58,4 @@ public class Subscription {
     @UpdateTimestamp
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
-
-    /**
-     * Default constructor.
-     *
-     */
-    public Subscription() {}
-
-    /**
-     * Subscription constructor.
-     *
-     * @param email {@link String}
-     * @param statusId {@link String}
-     */
-    public Subscription(final String email,
-                        final String statusId) {
-        this.email = email;
-        this.statusId = statusId;
-    }
 }

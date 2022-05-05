@@ -1,6 +1,7 @@
 package br.com.atlantico.brenoararipe.consumermicroservice.service;
 
-import br.com.atlantico.brenoararipe.consumermicroservice.model.Subscription;
+import br.com.atlantico.brenoararipe.consumermicroservice.model.Subscription.Subscription;
+import br.com.atlantico.brenoararipe.consumermicroservice.model.Subscription.SubscriptionBuilder;
 import br.com.atlantico.brenoararipe.consumermicroservice.repository.SubscriptionRepository;
 import dto.SubscriptionDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +33,10 @@ public class SubscriptionService {
      * @return an instance of {@link Subscription}
      */
     public Subscription registerSubscription(SubscriptionDto subscriptionDto, String type) {
-        Subscription subscription = new Subscription(subscriptionDto.email, subscriptionDto.status_id);
+        Subscription subscription = SubscriptionBuilder.builder()
+                .email(subscriptionDto.email)
+                .statusId(subscriptionDto.status_id)
+                .build();
         subscriptionRepository.save(subscription);
 
         eventHistoryService.registerHistory(subscription, type);
