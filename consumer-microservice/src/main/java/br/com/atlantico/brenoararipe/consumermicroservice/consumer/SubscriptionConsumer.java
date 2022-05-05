@@ -55,13 +55,7 @@ public class SubscriptionConsumer {
      */
     @RabbitListener(queues = QUEUE_PURCHASE)
     private void subscriptionPurchaseConsumer(SubscriptionDto subscriptionDto) {
-
-        if (subscriptionDto.id != null) {
-            subscriptionDto.status_id = ACTIVE;
-            subscriptionService.updateSubscription(subscriptionDto, SUBSCRIPTION_PURCHASE);
-        } else {
-            System.out.println("Invalid ID");
-        }
+            subscriptionService.updateSubscription(subscriptionDto, SUBSCRIPTION_PURCHASE, ACTIVE);
     }
 
     /**
@@ -71,13 +65,7 @@ public class SubscriptionConsumer {
      */
     @RabbitListener(queues = QUEUE_CANCEL)
     private void subscriptionCancelConsumer(SubscriptionDto subscriptionDto) {
-
-        if (subscriptionDto.id != null) {
-            subscriptionDto.status_id = INACTIVE;
-            subscriptionService.updateSubscription(subscriptionDto, SUBSCRIPTION_CANCEL);
-        } else {
-            System.out.println("Invalid ID");
-        }
+            subscriptionService.updateSubscription(subscriptionDto, SUBSCRIPTION_CANCEL, INACTIVE);
     }
 
     /**
@@ -87,13 +75,7 @@ public class SubscriptionConsumer {
      */
     @RabbitListener(queues = QUEUE_RECOVER)
     private void subscriptionRecoverConsumer(SubscriptionDto subscriptionDto) {
-
-        if (subscriptionDto.id != null) {
-            subscriptionDto.status_id = ACTIVE;
-            subscriptionService.updateSubscription(subscriptionDto, SUBSCRIPTION_RECOVER);
-        } else {
-            System.out.println("Invalid ID");
-        }
+            subscriptionService.updateSubscription(subscriptionDto, SUBSCRIPTION_RECOVER, ACTIVE);
     }
 
     /**
@@ -103,8 +85,6 @@ public class SubscriptionConsumer {
      */
     @RabbitListener(queues = QUEUE_REGISTER)
     private void subscriptionRegisterConsumer(SubscriptionDto subscriptionDto) {
-
-        subscriptionDto.status_id = INACTIVE;
-        subscriptionService.registerSubscription(subscriptionDto, SUBSCRIPTION_CREATE);
+        subscriptionService.registerSubscription(subscriptionDto, SUBSCRIPTION_CREATE, INACTIVE);
     }
 }

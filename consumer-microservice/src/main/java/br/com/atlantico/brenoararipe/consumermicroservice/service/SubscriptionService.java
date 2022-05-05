@@ -32,16 +32,21 @@ public class SubscriptionService {
      * @param type {@link String}
      * @return an instance of {@link Subscription}
      */
-    public Subscription registerSubscription(SubscriptionDto subscriptionDto, String type) {
+    public Subscription registerSubscription(SubscriptionDto subscriptionDto, String type, String status) {
         Subscription subscription = SubscriptionBuilder.builder()
                 .email(subscriptionDto.email)
-                .statusId(subscriptionDto.status_id)
+                .statusId(status)
                 .build();
+        if (subscriptionRepository.findByEmail(subscriptionDto.email) != null) {
+            return new Subscription();
+        } else {
+
         subscriptionRepository.save(subscription);
 
         eventHistoryService.registerHistory(subscription, type);
 
-        return subscription;
+            return subscription;
+        }
     }
 
     /**
@@ -52,10 +57,10 @@ public class SubscriptionService {
      * @return an instance of {@link Subscription}
      */
     @Transactional
-    public Subscription updateSubscription(SubscriptionDto subscriptionDto, String type) {
-        if (subscriptionRepository.existsById(subscriptionDto.id)) {
-            Subscription subscription = subscriptionRepository.getById(subscriptionDto.id);
-            subscription.setStatusId(subscriptionDto.status_id);
+    public Subscription updateSubscription(SubscriptionDto subscriptionDto, String type, String status) {
+        if (subscriptionRepository.findByEmail(subscriptionDto.email) != null) {
+            Subscription subscription = subscriptionRepository.findByEmail(subscriptionDto.email);
+            subscription.setStatusId(status);
             subscriptionRepository.save(subscription);
 
             eventHistoryService.registerHistory(subscription, type);
