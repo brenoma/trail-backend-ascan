@@ -71,6 +71,8 @@ public class RabbitMQConnection {
         Queue queueCancel = this.queue(RabbitMQConstants.QUEUE_CANCEL);
         Queue queueRecover = this.queue(RabbitMQConstants.QUEUE_RECOVER);
         Queue queueRegister = this.queue(RabbitMQConstants.QUEUE_REGISTER);
+        Queue queueRegisterEmail = this.queue(RabbitMQConstants.QUEUE_EMAIL_REGISTER);
+        Queue queueSubscriptionEmail = this.queue(RabbitMQConstants.QUEUE_EMAIL_SUBSCRIPTION_UPDATE);
 
         DirectExchange exchange = this.directExchange();
 
@@ -78,29 +80,29 @@ public class RabbitMQConnection {
         Binding bindCancel = this.binding(queueCancel, exchange);
         Binding bindRecover = this.binding(queueRecover, exchange);
         Binding bindRegister = this.binding(queueRegister, exchange);
+        Binding bindingRegisterEmail = this.binding(queueRegisterEmail, exchange);
+        Binding bindingSubscriptionEmail = this.binding(queueSubscriptionEmail, exchange);
 
-        /**
-         * Creation of the queues on RabbitMQ.
-         *
-         */
+        // Creation of the queues on RabbitMQ.
+
         this.amqpAdmin.declareQueue(queuePurchase);
         this.amqpAdmin.declareQueue(queueCancel);
         this.amqpAdmin.declareQueue(queueRecover);
         this.amqpAdmin.declareQueue(queueRegister);
+        this.amqpAdmin.declareQueue(queueRegisterEmail);
+        this.amqpAdmin.declareQueue(queueSubscriptionEmail);
 
-        /**
-         * Creating of the exchange on RabbitMQ.
-         *
-         */
+        // Creating of the exchange on RabbitMQ.
+
         this.amqpAdmin.declareExchange(exchange);
 
-        /**
-         * Creating of the bindings between queues and exchanges.
-         *
-         */
+        // Creating of the bindings between queues and exchanges.
+
         this.amqpAdmin.declareBinding(bindPurchase);
         this.amqpAdmin.declareBinding(bindCancel);
         this.amqpAdmin.declareBinding(bindRecover);
         this.amqpAdmin.declareBinding(bindRegister);
+        this.amqpAdmin.declareBinding(bindingRegisterEmail);
+        this.amqpAdmin.declareBinding(bindingSubscriptionEmail);
     }
 }
