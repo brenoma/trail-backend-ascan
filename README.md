@@ -1,10 +1,11 @@
 # Subsapi
-![logo.png](/Assets/logo.png)
+![logo.png](/assets/logo.png)
 
 ## Sumary 
 
 - [Trail Backend Ascan](#trail-backend-ascan)
   - [About the project](#about-the-project)
+  - [Project architecture](#project-achitecture)
   - [Technologies](#technologies)
   - [Building](#building)
     - [How to build](#how-to-build)
@@ -13,7 +14,6 @@
     - [Get Started](#get-started)
     - [Useful Docker Commands](#useful-docker-commands)
 - [My Extra Goals](#my-extra-goals)
-- [Credits](#scroll-credits)
 
 # Trail Backend Ascan
 
@@ -23,10 +23,12 @@ This is an open project to conclude a trail for a Intern formation at
 
 ## About the project
 
-This project achitecture
-![img.png](Assets/img.png)
 
-### Technologies
+
+## Project achitecture
+![img.png](assets/img.png)
+
+## Technologies
 
 - RabbitMQ
 - SpringBoot
@@ -42,7 +44,7 @@ $ mvn clean install
 
 After building the project using Maven, you'll need to build the container using Docker or Docker Compose.
 
-#### Building with Docker Compose
+### Building with Docker Compose
 
 To build the project withh all its linked services (Postgres and Microservice):
 

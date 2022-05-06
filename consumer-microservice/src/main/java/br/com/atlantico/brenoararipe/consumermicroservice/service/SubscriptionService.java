@@ -3,6 +3,8 @@ package br.com.atlantico.brenoararipe.consumermicroservice.service;
 import br.com.atlantico.brenoararipe.consumermicroservice.model.Subscription.Subscription;
 import br.com.atlantico.brenoararipe.consumermicroservice.model.Subscription.SubscriptionBuilder;
 import br.com.atlantico.brenoararipe.consumermicroservice.repository.SubscriptionRepository;
+import constants.RabbitMQConstants;
+import dto.SendEmailDto;
 import dto.SubscriptionDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,6 +28,13 @@ public class SubscriptionService {
     EventHistoryService eventHistoryService;
 
     /**
+     * RabbitmqService instance.
+     *
+     */
+    @Autowired
+    private RabbitmqService rabbitmqService;
+
+    /**
      * Method to create a new Subscription.
      *
      * @param subscriptionDto {@link SubscriptionDto}
@@ -44,6 +53,10 @@ public class SubscriptionService {
         subscriptionRepository.save(subscription);
 
         eventHistoryService.registerHistory(subscription, type);
+
+        SendEmailDto sendEmailDto = new SendEmailDto(subscriptionDto.email, type);
+
+        this.rabbitmqService.sendMessage(RabbitMQConstants.QUEUE_EMAIL_REGISTER, sendEmailDto);
 
             return subscription;
         }
@@ -64,6 +77,10 @@ public class SubscriptionService {
             subscriptionRepository.save(subscription);
 
             eventHistoryService.registerHistory(subscription, type);
+
+            SendEmailDto sendEmailDto = new SendEmailDto(subscriptionDto.email, type);
+
+            this.rabbitmqService.sendMessage(RabbitMQConstants.QUEUE_EMAIL_SUBSCRIPTION_UPDATE, sendEmailDto);
 
             return subscription;
         }
