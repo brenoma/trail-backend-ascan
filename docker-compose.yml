@@ -17,33 +17,59 @@ services:
 #      - db
 
   db:
+    container_name: db_subsapi
     image: postgres:12-alpine
     ports:
       - '5432:5432'
     environment:
-      - POSTGRES_PASSWORD=123
-      - POSTGRES_USER=postgres
-      - POSTGRES_DB=subirapi
+      - POSTGRES_PASSWORD=${POSTGRES_MICROSERVICE_PASSWORD}
+      - POSTGRES_USER=${POSTGRES_MICROSERVICE_USER}
+      - POSTGRES_DB=${POSTGRES_MICROSERVICE_DB}
 
   pgadmin:
     container_name: db_pgadmin
     image: dpage/pgadmin4
     tty: true
     environment:
-      - PGADMIN_DEFAULT_EMAIL=admin@admin.com
-      - PGADMIN_DEFAULT_PASSWORD=123
+      - PGADMIN_DEFAULT_EMAIL=${PGADMIN_DEFAULT_EMAIL}
+      - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_DEFAULT_PASSWORD}
     ports:
       - '9119:80'
     depends_on:
       - db
 
   rabbit:
+    container_name: mb_rabbitmq
     image: "rabbitmq:3-management"
     environment:
-        RABBITMQ_ERLANG_COOKIE: "SWQOKODSQALRPCLNMEQG"
-        RABBITMQ_DEFAULT_USER: "guest"
-        RABBITMQ_DEFAULT_PASS: "guest"
-        RABBIT_DEFAULT_VHOST: "/"
+      - RABBITMQ_ERLANG_COOKIE=${RABBITMQ_ERLANG_COOKIE}
+      - RABBITMQ_DEFAULT_USER=${RABBITMQ_DEFAULT_USER}
+      - RABBITMQ_DEFAULT_PASS=${RABBITMQ_DEFAULT_PASS}
+      - RABBIT_DEFAULT_VHOST=${RABBITMQ_DEFAULT_VHOST}
     ports:
       - "15672:15672"
       - "5672:5672"
+
+  postgres:
+    image: postgres
+    volumes:
+      - ./.docker/dbdata:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: ${POSTGRESQL_DB}
+      POSTGRES_USER: ${POSTGRESQL_USER}
+      POSTGRES_PASSWORD: ${POSTGRESQL_PASS}
+  keycloak:
+    image: quay.io/keycloak/keycloak:legacy
+    environment:
+      DB_VENDOR: ${DB_VENDOR}
+      DB_ADDR: ${DB_ADDR}
+      DB_DATABASE: ${DB_DATABASE}
+      DB_USER: ${DB_USER}
+      DB_SCHEMA: ${DB_SCHEMA}
+      DB_PASSWORD: ${DB_PASSWORD}
+      KEYCLOAK_USER: ${KEYCLOAK_USER}
+      KEYCLOAK_PASSWORD: ${KEYCLOAK_PASSWORD}
+    ports:
+      - '8086:8080'
+    depends_on:
+      - postgres
