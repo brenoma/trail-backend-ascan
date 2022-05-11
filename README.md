@@ -13,7 +13,8 @@
   - [Docker](#docker)
     - [Get Started](#get-started)
     - [Useful Docker Commands](#useful-docker-commands)
-- [My Extra Goals](#my-extra-goals)
+- [Project Goals](#project-goals)
+  - [My Extra Goals](#my-extra-goals)
 
 # Trail Backend Ascan
 
@@ -23,7 +24,11 @@ This is an open project to conclude a trail for a Intern formation at
 
 ## About the project
 
-
+This is a project that simulates a subscription service, with registration, purchase, cancel and recover of a
+subscription. I've used the microservices architecture to build it and did the communication among the services with
+a message broker. There is also a microservice to consume these subscriptions changes and persist the data and then
+produce a message to message broker that will be consumed by a notification microservice that send the changes to
+user email.
 
 ## Project achitecture
 ![img.png](assets/img.png)
@@ -33,6 +38,8 @@ This is an open project to conclude a trail for a Intern formation at
 - RabbitMQ
 - SpringBoot
 - Postgres
+- Keycloak
+- Docker
 
 ## Building
 
@@ -67,11 +74,19 @@ docker ps
 docker exec -it ${containerName} bash
 ```
 
-# My Extra Goals
+# Project Goals
 
-- [ ] Swagger API Documentation
+- [x] API Rest
+- [x] Message broker
+- [x] Microservice to persist data
 - [ ] Unit tests
 - [ ] Functional tests
+
+## My Extra Goals
+
+- [x] Microservice to notify subscription change
+- [x] Keycloak
+- [ ] Swagger API Documentation
 - [ ] Elastic Stack for Logging
 - [ ] CI/CD Pipelines
 
