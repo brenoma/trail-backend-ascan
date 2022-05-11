@@ -10,13 +10,13 @@ import org.springframework.stereotype.Service;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
-import static br.com.atlantico.brenoararipe.emailapi.util.CancelSubscriptionEmailUtil.CANCEL_BODY;
-import static br.com.atlantico.brenoararipe.emailapi.util.CancelSubscriptionEmailUtil.CANCEL_SUBJECT;
-import static br.com.atlantico.brenoararipe.emailapi.util.PurchaseSubscriptionEmailUtil.PURCHASE_BODY;
-import static br.com.atlantico.brenoararipe.emailapi.util.PurchaseSubscriptionEmailUtil.PURCHASE_SUBJECT;
-import static br.com.atlantico.brenoararipe.emailapi.util.RecoverSubscriptionEmailUtil.RECOVER_BODY;
-import static br.com.atlantico.brenoararipe.emailapi.util.RecoverSubscriptionEmailUtil.RECOVER_SUBJECT;
-import static br.com.atlantico.brenoararipe.emailapi.util.RegisterEmailUtil.*;
+import static constants.util.CancelSubscriptionEmailUtil.CANCEL_BODY;
+import static constants.util.CancelSubscriptionEmailUtil.CANCEL_SUBJECT;
+import static constants.util.PurchaseSubscriptionEmailUtil.PURCHASE_BODY;
+import static constants.util.PurchaseSubscriptionEmailUtil.PURCHASE_SUBJECT;
+import static constants.util.RecoverSubscriptionEmailUtil.RECOVER_BODY;
+import static constants.util.RecoverSubscriptionEmailUtil.RECOVER_SUBJECT;
+import static constants.util.RegisterEmailUtil.*;
 
 @Service
 public class EmailSenderService {
@@ -57,7 +57,7 @@ public class EmailSenderService {
      * @param subject {@link String}
      * @param toEmail {@link String}
      */
-    private void formatEmailToHTML(String body, String subject, String toEmail) {
+    protected void formatEmailToHTML(String body, String subject, String toEmail) {
         MimeMessage message = mailSender.createMimeMessage();
         try {
             MimeMessageHelper helper = new MimeMessageHelper(message, false, "utf-8");

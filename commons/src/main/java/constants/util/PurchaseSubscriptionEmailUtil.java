@@ -1,10 +1,10 @@
-package br.com.atlantico.brenoararipe.emailapi.util;
+package constants.util;
 
-public class CancelSubscriptionEmailUtil {
+public class PurchaseSubscriptionEmailUtil {
 
-    public static final String CANCEL_SUBJECT = "So sorry, you have canceled your subscription on Subsapi!";
+    public static final String PURCHASE_SUBJECT = "You have sussesfully purchased a new subscription on Subsapi!";
 
-    public static final String CANCEL_BODY = "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\n" +
+    public static final String PURCHASE_BODY = "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\n" +
             "<html xmlns=\"http://www.w3.org/1999/xhtml\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" style=\"font-family:arial, 'helvetica neue', helvetica, sans-serif\">\n" +
             "<head>\n" +
             "<meta charset=\"UTF-8\">\n" +
@@ -119,10 +119,10 @@ public class CancelSubscriptionEmailUtil {
             "<td align=\"center\" style=\"padding:0;Margin:0;padding-top:10px;padding-bottom:10px;font-size:0px\"><img src=\"https://jfpdww.stripocdn.email/content/guids/CABINET_f3fc38cf551f5b08f70308b6252772b8/images/96671618383886503.png\" alt style=\"display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic\" width=\"100\"></td>\n" +
             "</tr>\n" +
             "<tr>\n" +
-            "<td align=\"center\" class=\"es-m-txt-c\" style=\"padding:0;Margin:0;padding-top:15px;padding-bottom:15px\"><h1 style=\"Margin:0;line-height:55px;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;font-size:46px;font-style:normal;font-weight:bold;color:#333333\">Your Subscription is now Inactive!</h1></td>\n" +
+            "<td align=\"center\" class=\"es-m-txt-c\" style=\"padding:0;Margin:0;padding-top:15px;padding-bottom:15px\"><h1 style=\"Margin:0;line-height:55px;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;font-size:46px;font-style:normal;font-weight:bold;color:#333333\">Your Subscription is now Active!</h1></td>\n" +
             "</tr>\n" +
             "<tr>\n" +
-            "<td align=\"left\" style=\"padding:0;Margin:0;padding-top:10px;padding-bottom:10px\"><p style=\"Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:24px;color:#333333;font-size:16px\">Hello, sorry&nbsp;! You have succesfully canceled your subscription.</p></td>\n" +
+            "<td align=\"left\" style=\"padding:0;Margin:0;padding-top:10px;padding-bottom:10px\"><p style=\"Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:24px;color:#333333;font-size:16px\">Hello, ! You have succesfully purchased your subscription.</p></td>\n" +
             "</tr>\n" +
             "</table></td>\n" +
             "</tr>\n" +

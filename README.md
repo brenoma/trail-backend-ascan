@@ -79,7 +79,9 @@ docker exec -it ${containerName} bash
 - [x] API Rest
 - [x] Message broker
 - [x] Microservice to persist data
-- [ ] Unit tests
+- [x] Unit tests (Subs-api)
+- [x] Unit tests (Email-api)
+- [ ] Unit tests (consumer-microservice)
 - [ ] Functional tests
 
 ## My Extra Goals
