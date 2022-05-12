@@ -28,7 +28,7 @@ public class EmailConsumer {
      * @param sendEmailDto {@link SendEmailDto}
      */
     @RabbitListener(queues = QUEUE_EMAIL_REGISTER)
-    private void emailRegisterSubscriptionConsumer(SendEmailDto sendEmailDto) {
+    protected void emailRegisterSubscriptionConsumer(SendEmailDto sendEmailDto) {
         this.emailSenderService.sendRegisterEmail(sendEmailDto.email);
     }
 
@@ -38,7 +38,7 @@ public class EmailConsumer {
      * @param sendEmailDto {@link SendEmailDto}
      */
     @RabbitListener(queues = QUEUE_EMAIL_SUBSCRIPTION_UPDATE)
-    private void emailPurchaseSubscriptionConsumer(SendEmailDto sendEmailDto) {
+    protected void emailPurchaseSubscriptionConsumer(SendEmailDto sendEmailDto) {
         this.emailSenderService.sendSubscriptionEmail(sendEmailDto);
     }
 }

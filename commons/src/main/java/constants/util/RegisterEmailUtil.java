@@ -1,4 +1,4 @@
-package br.com.atlantico.brenoararipe.emailapi.util;
+package constants.util;
 
 public class RegisterEmailUtil {
 
