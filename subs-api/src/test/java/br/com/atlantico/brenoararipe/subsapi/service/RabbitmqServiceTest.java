@@ -2,15 +2,20 @@ package br.com.atlantico.brenoararipe.subsapi.service;
 
 import dto.SubscriptionDto;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.context.support.AnnotationConfigContextLoader;
 
 import static constants.RabbitMQConstants.QUEUE_REGISTER;
 import static org.mockito.Mockito.verify;
 
-@SpringBootTest
+@ExtendWith(SpringExtension.class)
+@ContextConfiguration(classes=RabbitmqService.class, loader= AnnotationConfigContextLoader.class)
+//@RunWith(MockitoJUnitRunner.class)
 public class RabbitmqServiceTest {
 
     @Autowired

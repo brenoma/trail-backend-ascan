@@ -4,12 +4,17 @@ import br.com.atlantico.brenoararipe.emailapi.service.EmailSenderService;
 import dto.SendEmailDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.context.support.AnnotationConfigContextLoader;
 
-@SpringBootTest
+import static org.mockito.Mockito.verify;
+
+@ExtendWith(SpringExtension.class)
+@ContextConfiguration(classes=EmailConsumer.class, loader= AnnotationConfigContextLoader.class)
 public class EmailConsumerTest {
 
     @Autowired
@@ -26,7 +31,7 @@ public class EmailConsumerTest {
     public void emailRegisterSubscriptionConsumer_shouldSendMessageToRegisterNewEmail() {
         emailConsumer.emailRegisterSubscriptionConsumer(sendEmailDtoMock);
 
-        Mockito.verify(emailSenderServiceMock).sendRegisterEmail(sendEmailDtoMock.email);
+        verify(emailSenderServiceMock).sendRegisterEmail(sendEmailDtoMock.email);
     }
 
     @Test
@@ -34,6 +39,6 @@ public class EmailConsumerTest {
     public void emailRegisterSubscriptionConsumer_shouldSendMessageToSubscriptionUpdate() {
         emailConsumer.emailPurchaseSubscriptionConsumer(sendEmailDtoMock);
 
-        Mockito.verify(emailSenderServiceMock).sendSubscriptionEmail(sendEmailDtoMock);
+        verify(emailSenderServiceMock).sendSubscriptionEmail(sendEmailDtoMock);
     }
 }
