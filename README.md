@@ -81,7 +81,7 @@ docker exec -it ${containerName} bash
 - [x] Microservice to persist data
 - [x] Unit tests (Subs-api)
 - [x] Unit tests (Email-api)
-- [ ] Unit tests (consumer-microservice)
+- [x] Unit tests (consumer-microservice)
 - [ ] Functional tests
 
 ## My Extra Goals

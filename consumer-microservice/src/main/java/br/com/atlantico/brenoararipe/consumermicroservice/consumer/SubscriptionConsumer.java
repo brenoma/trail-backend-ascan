@@ -54,7 +54,7 @@ public class SubscriptionConsumer {
      * @param subscriptionDto {@link SubscriptionDto}
      */
     @RabbitListener(queues = QUEUE_PURCHASE)
-    private void subscriptionPurchaseConsumer(SubscriptionDto subscriptionDto) {
+    protected void subscriptionPurchaseConsumer(SubscriptionDto subscriptionDto) {
             subscriptionService.updateSubscription(subscriptionDto, SUBSCRIPTION_PURCHASE, ACTIVE);
     }
 
@@ -64,7 +64,7 @@ public class SubscriptionConsumer {
      * @param subscriptionDto {@link SubscriptionDto}
      */
     @RabbitListener(queues = QUEUE_CANCEL)
-    private void subscriptionCancelConsumer(SubscriptionDto subscriptionDto) {
+    protected void subscriptionCancelConsumer(SubscriptionDto subscriptionDto) {
             subscriptionService.updateSubscription(subscriptionDto, SUBSCRIPTION_CANCEL, INACTIVE);
     }
 
@@ -74,7 +74,7 @@ public class SubscriptionConsumer {
      * @param subscriptionDto {@link SubscriptionDto}
      */
     @RabbitListener(queues = QUEUE_RECOVER)
-    private void subscriptionRecoverConsumer(SubscriptionDto subscriptionDto) {
+    protected void subscriptionRecoverConsumer(SubscriptionDto subscriptionDto) {
             subscriptionService.updateSubscription(subscriptionDto, SUBSCRIPTION_RECOVER, ACTIVE);
     }
 
@@ -84,7 +84,7 @@ public class SubscriptionConsumer {
      * @param subscriptionDto {@link SubscriptionDto}
      */
     @RabbitListener(queues = QUEUE_REGISTER)
-    private void subscriptionRegisterConsumer(SubscriptionDto subscriptionDto) {
+    protected void subscriptionRegisterConsumer(SubscriptionDto subscriptionDto) {
         subscriptionService.registerSubscription(subscriptionDto, SUBSCRIPTION_CREATE, INACTIVE);
     }
 }
