@@ -6,18 +6,14 @@ ARG ADDITIONAL_OPTS
 ENV PROFILE=${PROFILE}
 ENV ADDITIONAL_OPTS=${ADDITIONAL_OPTS}
 
-WORKDIR /opt/subsapi
+WORKDIR /opt/subs-api
 
-#COPY entrypoint.sh entrypoint.sh
-#
-#COPY .env.example .env.example
-#
-#RUN chmod +x ./entrypoint.sh
+COPY /target/subs-api*.jar app.jar
 
-#RUN ./entrypoint.sh
-
-COPY /target/subsapi*.jar app.jar
+RUN chmod -x app.jar
 
 SHELL ["/bin/sh", "-c"]
 
-CMD java ${ADDITIONAL_OPTS} -jar app.jar --spring.profiles.active=${PROFILE}
+#CMD java ${ADDITIONAL_OPTS} -jar app.jar --spring.profiles.active=${PROFILE}
+
+ENTRYPOINT ["java", "-jar", "app.jar"]

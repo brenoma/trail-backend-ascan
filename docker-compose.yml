@@ -51,6 +51,7 @@ services:
       - "5672:5672"
 
   postgres:
+    container_name: db_keycloak
     image: postgres
     volumes:
       - ./.docker/dbdata:/var/lib/postgresql/data
@@ -60,6 +61,7 @@ services:
       POSTGRES_PASSWORD: ${POSTGRESQL_PASS}
 
   keycloak:
+    container_name: keycloak
     image: quay.io/keycloak/keycloak:legacy
     environment:
       DB_VENDOR: ${DB_VENDOR}

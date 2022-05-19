@@ -47,12 +47,12 @@
 			<artifactId>lombok</artifactId>
 			<version>1.18.24</version>
 		</dependency>
-		<dependency>
-			<groupId>org.librabbitmq</groupId>
-			<artifactId>librabbitmq</artifactId>
-			<version>1.0-SNAPSHOT</version>
-		</dependency>
-	</dependencies>
+        <dependency>
+            <groupId>br.com.atlantico.brenoararipe.commons</groupId>
+            <artifactId>commons</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
 
 	<build>
 		<plugins>
