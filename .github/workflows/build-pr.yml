@@ -26,6 +26,7 @@ jobs:
       - uses: actions/setup-java@v3
         with:
           java-version: '11'
+          distribution: 'temurin'
       - run: mvn -B package --file pom.xml -DskipTests
       - run: mkdir prod && cp target/*.jar prod
       - uses: actions/upload-artifact@v3
