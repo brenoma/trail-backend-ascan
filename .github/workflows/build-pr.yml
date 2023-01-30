@@ -28,10 +28,11 @@ jobs:
           java-version: '11'
           distribution: 'temurin'
       - run: mvn -B package --file pom.xml -DskipTests
-      - run: mkdir commons/prod && cp commons/target/commons-0.0.1-SNAPSHOT.jar commons/prod
-      - run: mkdir consumer-microservice/prod && cp consumer-microservice/target/consumer-microservice-0.0.1-SNAPSHOT.jar consumer-microservice/prod
-      - run: mkdir email-api/prod && cp email-api/target/email-api-0.0.1-SNAPSHOT.jar email-api/prod
-      - run: mkdir subs-api/prod && cp subs-api/target/subs-api-0.0.1-SNAPSHOT.jar subs-api/prod
+      - run: mkdir prod
+      - run: cp commons/target/commons-0.0.1-SNAPSHOT.jar prod
+      - run: cp consumer-microservice/target/consumer-microservice-0.0.1-SNAPSHOT.jar prod
+      - run: cp email-api/target/email-api-0.0.1-SNAPSHOT.jar prod
+      - run: cp subs-api/target/subs-api-0.0.1-SNAPSHOT.jar prod
       - uses: actions/upload-artifact@v3
         with:
           name: Package
