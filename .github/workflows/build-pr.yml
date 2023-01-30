@@ -28,7 +28,7 @@ jobs:
           java-version: '11'
           distribution: 'temurin'
       - run: mvn -B package --file pom.xml -DskipTests
-      - run: mkdir prod && cp target/*.jar prod
+      - run: mkdir prod && cp commons/target/commons-0.0.1-SNAPSHOT.jar prod
       - uses: actions/upload-artifact@v3
         with:
           name: Package
