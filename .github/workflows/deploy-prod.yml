@@ -1,15 +1,14 @@
-name: 'Provision environment'
+name: 'Terraform Provisioning'
 
 on:
   push:
     branches: [ "master" ]
+  pull_request:
 
 permissions:
   contents: read
 
 jobs:
-  git-checkout:
-    name: check
   terraform:
     name: 'Terraform'
     runs-on: ubuntu-latest
@@ -22,7 +21,10 @@ jobs:
 
     steps:
       # Checkout the repository to the GitHub Actions runner
-      - name: Checkout and clone Terraform repository
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Clone Terraform Repository
         run: |
           git clone brenoma/trail-devops-ascan
           cd trail-devops-ascan
