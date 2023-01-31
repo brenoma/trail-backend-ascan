@@ -26,7 +26,7 @@ jobs:
 
       - name: Clone Terraform Repository
         run: |
-          git clone brenoma/trail-devops-ascan
+          git clone https://github.com/brenoma/trail-devops-ascan.git
           cd trail-devops-ascan
 
       # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
