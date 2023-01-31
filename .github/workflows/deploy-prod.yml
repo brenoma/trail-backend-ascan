@@ -22,11 +22,10 @@ jobs:
 
     steps:
       # Checkout the repository to the GitHub Actions runner
-      - name: Checkout
-        uses: actions/checkout@v3
-        with:
-          repository: brenoma/trail-devops-ascan
-          path: main
+      - name: Checkout and clone Terraform repository
+        run: |
+          git clone brenoma/trail-devops-ascan
+          cd trail-devops-ascan
 
       # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
       - name: Setup Terraform
