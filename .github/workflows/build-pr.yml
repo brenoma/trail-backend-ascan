@@ -40,10 +40,6 @@ jobs:
           name: Package
           path: prod
 
-  deploy:
-    name: Deploy
-    runs-on: ubuntu-latest
-    steps:
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
